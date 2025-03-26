@@ -1,0 +1,33 @@
+body{
+    background-color:rgba(222, 210, 196, 0.822);
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    border: 1px dashed blue;
+    border-radius: 20px;
+    margin: 50px;
+}
+
+.game-area{
+    width: 80%;
+    border-radius: 10px;
+    padding:20px;
+    margin: 5px;
+}
+
+#game-info{
+    background-color:burlywood;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#controls{
+    background-color:rgb(110, 110, 110);
+    color:rgb(251, 252, 253);
+}
+
+#game-container{
+    background-color:gainsboro;
+}
