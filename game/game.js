@@ -39,12 +39,51 @@ document.addEventListener("DOMContentLoaded", () => {
     chooseLevel(selectedLevel);
   });
 
+  function checkGameState() {
+    const allSameColor = (tube) => {
+      const waters = Array.from(tube.children);
+      return (
+        waters.length === 4 &&
+        waters.every(
+          (water) =>
+            water.style.backgroundColor === waters[0].style.backgroundColor
+        )
+      );
+    };
+
+    let completedTubes = 0;
+    tubes.forEach((tube) => {
+      if (allSameColor(tube)) {
+        completedTubes++;
+      }
+    });
+    document.getElementById("completed-tubes-count").textContent =
+      completedTubes;
+
+    //檢查是否所有的試管都完成或者是空試管
+    if (
+      tubes.every((tube) => tube.childElementCount === 0 || allSameColor(tube))
+    ) {
+      if (levelCount === 10) {
+        alert("恭喜!你已經完成所有挑戰!!");
+      } else {
+        alert("你已經完成本關卡!");
+        levelCount++;
+        document.getElementById("level-count").textContent = levelCount;
+        document.getElementById("completed-tubes-count").textContent = 0;
+        chooseLevel(levelCount);
+        createTubes();
+        fillTubes();
+      }
+    }
+  }
+
   function pourWater(fromTube, toTube) {
     let fromWater = fromTube.querySelector(".water:last-child");
     let toWater = toTube.querySelector(".water:last-child");
 
     if (!toWater) {
-      const color = fromWater ? fromWater.stytle.backgroundColor : null;
+      const color = fromWater ? fromWater.style.backgroundColor : null;
       while (
         fromWater &&
         fromWater.style.backgroundColor === color &&
@@ -64,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
         toWater = toTube.querySelector(".water:last-child");
       }
     }
+    checkGameState();
   }
 
   function selectTube(tube) {
@@ -133,8 +173,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   playButton.addEventListener("click", () => {
-    //實作開始玩遊戲
-    // alert('開始玩遊戲');
     tubes.length = 0;
     createTubes();
     fillTubes();
